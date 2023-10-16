@@ -1,6 +1,6 @@
 
 <h2>
-    Fname is: <?php 
+    Fname is:<br> <?php 
     foreach($data as $user){
         echo '<br>' . $user->username . '<br>';
     }
@@ -8,7 +8,7 @@
 </h2>
 
 <h2>
-    Lname is: <?php 
+    Email is:<br> <?php 
         foreach($data as $user){
             echo '<br>' . $user->email . '<br>';
         }
