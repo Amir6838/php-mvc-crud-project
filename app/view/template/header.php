@@ -6,6 +6,6 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 	<title>قالب فرم چند مرحله ای همراه با نوار پیشرفت :: دریافت شده از وب روبیک</title>
 	<link rel="stylesheet" href="css/reset.min.css">
-	<link type="text/css" href="css/style.css" rel="stylesheet" />
+	<link type="text/css" href="<?php route('public/css/style.css') ?>" rel="stylesheet" />
 </head>
 <body>
