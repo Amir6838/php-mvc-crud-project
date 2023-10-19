@@ -1,5 +1,6 @@
 
 <h2>
+
     Fname is:<br> <?php 
     foreach($data as $user){
         echo '<br>' . $user->username . '<br>';

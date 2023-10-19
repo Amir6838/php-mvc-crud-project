@@ -1,6 +1,7 @@
 {
     "require": {
-        "illuminate/database": "^8.83"
+        "illuminate/database": "^8.83",
+        "rakit/validation": "^1.4"
     },
 
     "autoload": {
