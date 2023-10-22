@@ -1,12 +1,7 @@
 <form id="msform" action="<?php echo URLROOT.'/account/register' ?>" method="POST">
     <fieldset>
         <?php
-        if (isset($_SESSION['alert'])){
-            foreach ($_SESSION['alert']['message'] as $erorr){
-                alert('danger', 'sdf');
-            }
-            $_SESSION['alert'] = false;
-        }
+        var_dump($data);
         ?>
         <h2 class="fs-title">ایجاد حساب کاربری</h2>
         <h3 class="fs-subtitle">لطفا اطلاعات زیر را وارد کنید</h3>

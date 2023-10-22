@@ -16,7 +16,7 @@ class account extends Controller
 
     public function register()
     {
-        $this->loadView('register');
+        $erorr = 'not';
         $validator = new Validator;
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $validation = $validator->validate($_POST, [
@@ -43,26 +43,25 @@ class account extends Controller
                 //var_dump($errors);
                 exit;
             } else {
-                $user = '';
-                User::create(
-                    [
-                        'username' => $_POST['username'],
-                        'email' => $_POST['email'],
-                        'password' => $_POST['password'],
-                        'roll' => 0
-                    ]
-                );
-                if ($user){
-                    var_dump($user);
+                if (User::where('username', '=', $_POST['username'])->count() == 0 and User::where('email', '=', $_POST['email'])->count() == 0) {
+                    User::create(
+                        [
+                            'username' => $_POST['username'],
+                            'email' => $_POST['email'],
+                            'password' => $_POST['password'],
+                        ]
+                    );
+                }else{
+                    $erorr = ['کاربری با این نام کاربری و یا ایمیل ثبت نام کرده است'];
                 }
             }
 
         }
-
+        $this->loadView('register', $erorr);
     }
 
     public function login()
     {
-        $this->loadView('login');
+        $this->loadView('login', $erorr);
     }
 }
