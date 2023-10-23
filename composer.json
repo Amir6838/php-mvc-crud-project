@@ -1,8 +1,8 @@
 {
     "require": {
         "illuminate/database": "^8.83",
-        "rakit/validation": "^1.4",
-        "illuminate/events": "*"
+        "illuminate/events": "*",
+        "rakit/validation": "^1.4"
     },
 
     "autoload": {

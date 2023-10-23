@@ -1,6 +1,7 @@
-<form id="msform" action="<?php echo URLROOT.'/account/register' ?>" method="POST">
+<form id="msform" action="<?php echo URLROOT.'account/register' ?>" method="POST">
     <fieldset>
         <?php
+        var_dump($_SESSION['alert']);
         var_dump($data);
         ?>
         <h2 class="fs-title">ایجاد حساب کاربری</h2>

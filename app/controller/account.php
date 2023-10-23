@@ -16,7 +16,7 @@ class account extends Controller
 
     public function register()
     {
-        $erorr = 'not';
+        $erorr = ['not'];
         $validator = new Validator;
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $validation = $validator->validate($_POST, [
@@ -41,7 +41,6 @@ class account extends Controller
                 $errors = $validation->errors();
                 $_SESSION['alert'] = $errors;
                 //var_dump($errors);
-                exit;
             } else {
                 if (User::where('username', '=', $_POST['username'])->count() == 0 and User::where('email', '=', $_POST['email'])->count() == 0) {
                     User::create(
@@ -51,8 +50,10 @@ class account extends Controller
                             'password' => $_POST['password'],
                         ]
                     );
-                }else{
-                    $erorr = ['کاربری با این نام کاربری و یا ایمیل ثبت نام کرده است'];
+                    header('location:' . URLROOT . 'account/login');
+                } else {
+                    array_push($erorr, 'کاربری با این نام کاربری و یا ایمیل ثبت نام کرده است');
+//                    $erorr = ['کاربری با این نام کاربری و یا ایمیل ثبت نام کرده است'];
                 }
             }
 
@@ -62,6 +63,29 @@ class account extends Controller
 
     public function login()
     {
-        $this->loadView('login', $erorr);
+        $validator = new Validator;
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $validation = $validator->validate($_POST, [
+                'email' => 'required|email',
+                'password' => 'required|min:3',
+            ]);
+            if ($validation->fails()) {
+                // handling errors
+                $validation->setMessages([
+                    'email:required' => 'لطفا ایمیل را وارد کنید',
+                    'email:email' => 'ایمیل را به درستی وارد کنید',
+                    'password:required' => 'لطفا پسورد را وارد کنید',
+                ]);
+                $validation->validate();
+                $errors = $validation->errors();
+                $_SESSION['alert'] = $errors;
+                //var_dump($errors);
+            }else{
+                if (User::where('email' , '=', $_POST['email'])->count() == 1 and User::where('password' , '=', $_POST['password'])->count() == 1){
+
+                }
+            }
+        }
+        $this->loadView('login');
     }
 }
