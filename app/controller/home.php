@@ -1,7 +1,7 @@
 <?php
 class home extends Controller{
     public function index(){
-        $this->loadView('welcome', isset($_SESSION['login']));
+        $this->loadView('home', isset($_SESSION['login']));
     }
 
     public function about(){

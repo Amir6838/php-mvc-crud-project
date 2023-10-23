@@ -1,7 +1,7 @@
 <?php
 class App
 {
-    protected $currentController = 'home';
+    protected $currentController = 'account';
     protected $currentMethod = 'index';
     protected $params = [];
     public function __construct()
@@ -34,7 +34,7 @@ class App
 
     static function chekLogIn(){
         if (isset($_SESSION['login']) and $_SESSION['login'] == true){
-            header('location:' . URLROOT);
+            header('location:' . URLROOT . 'home');
         }
     }
 }
