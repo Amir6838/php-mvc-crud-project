@@ -110,6 +110,10 @@ class account extends Controller
         $this->loadView('login');
     }
 
+    public function edite(){
+        $this->loadView('edite');
+    }
+
 
     public function logout(){
         session_destroy();
