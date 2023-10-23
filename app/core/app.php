@@ -31,4 +31,10 @@ class App
             return $url;
         }
     }
+
+    static function chekLogIn(){
+        if (isset($_SESSION['login']) and $_SESSION['login'] == true){
+            header('location:' . URLROOT);
+        }
+    }
 }

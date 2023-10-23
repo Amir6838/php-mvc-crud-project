@@ -16,6 +16,7 @@ class account extends Controller
 
     public function register()
     {
+        App::chekLogIn();
         $erorr = ['not'];
         $validator = new Validator;
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -39,7 +40,7 @@ class account extends Controller
                 ]);
                 $validation->validate();
                 $errors = $validation->errors();
-                $_SESSION['alert'] = $errors;
+                $_SESSION['alert'] = $errors->firstOfAll();
                 //var_dump($errors);
             } else {
                 if (User::where('username', '=', $_POST['username'])->count() == 0 and User::where('email', '=', $_POST['email'])->count() == 0) {
@@ -52,8 +53,7 @@ class account extends Controller
                     );
                     header('location:' . URLROOT . 'account/login');
                 } else {
-                    array_push($erorr, 'کاربری با این نام کاربری و یا ایمیل ثبت نام کرده است');
-//                    $erorr = ['کاربری با این نام کاربری و یا ایمیل ثبت نام کرده است'];
+                    $_SESSION['alert'] = ['count' => 'کاربری با این نام کاربری و یا ایمیل ثبت نام کرده است'];
                 }
             }
 
@@ -61,8 +61,18 @@ class account extends Controller
         $this->loadView('register', $erorr);
     }
 
+
+
+
+
+
+
+
+
+    //Log in Controller
     public function login()
     {
+        App::chekLogIn();
         $validator = new Validator;
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $validation = $validator->validate($_POST, [
@@ -75,14 +85,24 @@ class account extends Controller
                     'email:required' => 'لطفا ایمیل را وارد کنید',
                     'email:email' => 'ایمیل را به درستی وارد کنید',
                     'password:required' => 'لطفا پسورد را وارد کنید',
+                    'password:min' => 'حداقل طول پسورد باید شش کاراکتر باشد'
                 ]);
                 $validation->validate();
                 $errors = $validation->errors();
-                $_SESSION['alert'] = $errors;
-                //var_dump($errors);
+//              var_dump($errors->firstOfAll());
+                $_SESSION['alert'] = $errors->firstOfAll();
             }else{
-                if (User::where('email' , '=', $_POST['email'])->count() == 1 and User::where('password' , '=', $_POST['password'])->count() == 1){
-
+                if (User::where('email' , '=', $_POST['email'])->count() == 1){
+                    $user = User::where('email' , '=', $_POST['email'])->first()->toArray();
+                    if ($user['password'] == $_POST['password']) {
+                        $_SESSION['login'] = true;
+                        $_SESSION['username'] = User::where('email', '=', $_POST['email'])->get()[0]['username'];
+                    }else{
+                        $_SESSION['alert'] = ['nopass' => 'رمز عبور را به درستی وارد کنید'];
+                    }
+                }else{
+                    if (User::where('email' , '=', $_POST['email'])->count() == 0)
+                        $_SESSION['alert'] = ['count' => 'کاربری با این نام کاربری وجود ندارد'];
                 }
             }
         }
