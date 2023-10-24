@@ -1,6 +1,6 @@
 <?php
 
 function route($rout){
-    echo URLROOT . $rout;
+    header('location:' . URLROOT . $rout);
 }
 

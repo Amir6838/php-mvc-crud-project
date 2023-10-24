@@ -110,8 +110,12 @@ class account extends Controller
         $this->loadView('login');
     }
 
-    public function edite(){
-        $this->loadView('edite');
+    public function edit(){
+        if (isset($_SESSION['login'])) {
+            $this->loadView('edit');
+        }else{
+            $this->login();
+        }
     }
 
 
